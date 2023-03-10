@@ -1,5 +1,29 @@
 import { useState } from 'react'
 
+const Anecdotes = ({anecdote, nVotes, handleVote, randomizeSelection}) => {
+  return(
+    <div>
+      <h1>Anecdote of the day</h1>
+      {anecdote}
+      <p>has {nVotes} votes</p>
+      <div>
+        <button onClick={handleVote}>vote</button>
+        <button onClick={randomizeSelection}>next anecdote</button>
+      </div>
+    </div>
+  )
+}
+
+const PopularAnecdote = ({popularAnecdote, votes}) => {
+  return(
+    <div>
+      <h1>Anecdote with most votes</h1>
+      {popularAnecdote}
+      <p>has {votes} votes</p>
+    </div>
+  )
+}
+
 const App = () => {
   const anecdotes = [
     'If it hurts, do it more often.',
@@ -50,17 +74,9 @@ const App = () => {
   
   return (
     <div onLoad={randomizeSelection}>
-      <h1>Anecdote of the day</h1>
-      {anecdotes[selected]}
-      <p>has {votes[selected]} votes</p>
-      <div>
-        <button onClick={handleVote}>vote</button>
-        <button onClick={randomizeSelection}>next anecdote</button>
-      </div>
+      <Anecdotes anecdote={anecdotes[selected]} nVotes={votes[selected]} handleVote={handleVote} randomizeSelection={randomizeSelection}/>
 
-      <h1>Anecdote with most votes</h1>
-      {anecdotes[popularAnecdote]}
-      <p>has {votes[popularAnecdote]} votes</p>
+      <PopularAnecdote popularAnecdote={anecdotes[popularAnecdote]} votes={votes[popularAnecdote]} />
     </div>
   )
 }
